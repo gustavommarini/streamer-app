@@ -6,14 +6,9 @@ import { MediaPlayer } from "@/components";
 
 const PlayerScreen = () => {
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: COLORS.background,
-      }}
-    >
+    <>
       <MediaPlayer />
-    </SafeAreaView>
+    </>
   );
 };
 

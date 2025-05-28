@@ -5,13 +5,19 @@ import { useMediaStore } from "@/store";
 import { styles } from "./media-player.styles";
 import { getTypeColor } from "@/utils";
 import { PlayerControls } from "./components";
+import { ProgressType } from "./media-player.types";
 
 export const MediaPlayer = () => {
-  const currentTrack = useMediaStore((state) => state.currentTrack);
+  const { currentTrack, isPlaying, setCurrentTime, currentTime } =
+    useMediaStore();
 
   if (!currentTrack) {
     return <Text>Error</Text>;
   }
+
+  const handleProgress = (progObj: Readonly<ProgressType>) => {
+    setCurrentTime(progObj.currentTime);
+  };
 
   return (
     <>
@@ -21,8 +27,12 @@ export const MediaPlayer = () => {
             source={{ uri: currentTrack.url }}
             style={styles.videoPlayer}
             resizeMode="contain"
+            paused={!isPlaying}
+            onProgress={handleProgress}
+            currentPlaybackTime={currentTime}
           />
         </View>
+        <PlayerControls />
 
         <View style={styles.infoContainer}>
           <Text style={styles.title}>{currentTrack.title}</Text>

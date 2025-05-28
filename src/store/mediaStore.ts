@@ -11,6 +11,9 @@ interface MediaState {
   currentTime: number;
   // ACTIONS
   setCurrentTrack: (track: Media) => void;
+  setCurrentTime: (time: number) => void;
+  setIsPlaying: (isPlaying: boolean) => void;
+  togglePlayPause: () => void;
 }
 
 export const useMediaStore = create<MediaState>()(
@@ -28,6 +31,21 @@ export const useMediaStore = create<MediaState>()(
             isPlaying: true,
             currentTime: 0,
           }),
+
+        setCurrentTime: (time) =>
+          set({
+            currentTime: time,
+          }),
+
+        setIsPlaying: (isPlaying) =>
+          set({
+            isPlaying,
+          }),
+
+        togglePlayPause: () =>
+          set((state) => ({
+            isPlaying: !state.isPlaying,
+          })),
       }),
       {
         name: "media-storage",
