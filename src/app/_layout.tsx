@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
+import { SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
-import "../../global.css";
-import { SafeAreaView } from "react-native";
+import { Tabs } from "expo-router";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faHome, faVideo, faSkull } from "@fortawesome/free-solid-svg-icons";
 import { COLORS } from "@/constants";
+import "../../global.css";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,7 +35,57 @@ export default function RootLayout() {
       }}
     >
       <StatusBar style="auto" />
-      <Stack />
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: COLORS.tabActive,
+          tabBarInactiveTintColor: COLORS.tabInactive,
+          tabBarStyle: {
+            elevation: 0,
+            borderTopWidth: 1,
+            borderTopColor: COLORS.border,
+            backgroundColor: COLORS.background,
+          },
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 1,
+            borderBottomColor: COLORS.border,
+            backgroundColor: COLORS.background,
+          },
+          headerTitleStyle: {
+            fontWeight: "600",
+            color: COLORS.primary,
+          },
+        }}
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: "Playlist",
+            tabBarIcon: ({ color }) => (
+              <FontAwesomeIcon icon={faHome} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="player"
+          options={{
+            title: "Player",
+            tabBarIcon: ({ color }) => (
+              <FontAwesomeIcon icon={faVideo} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="credits"
+          options={{
+            title: "Credits",
+            tabBarIcon: ({ color }) => (
+              <FontAwesomeIcon icon={faSkull} color={color} />
+            ),
+          }}
+        />
+      </Tabs>
     </SafeAreaView>
   );
 }

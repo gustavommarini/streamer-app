@@ -2,7 +2,7 @@ import { MediaList } from "@/components";
 import { COLORS, FONTS } from "@/constants";
 import { View, Text, StyleSheet } from "react-native";
 
-export default function IndexScreen() {
+const IndexScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerText}>
@@ -14,7 +14,7 @@ export default function IndexScreen() {
       <MediaList />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -41,3 +41,5 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 });
+
+export default IndexScreen;

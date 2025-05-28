@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { ScrollView, View, Text } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { useFocusEffect, useLocalSearchParams } from "expo-router";
 import Video, { VideoRef } from "react-native-video";
 import { useMediaStore } from "@/store";
 import { getTypeColor } from "@/utils";
@@ -22,6 +22,16 @@ export const MediaPlayer = () => {
   const handleOnEnd = () => {
     setIsPlaying(false);
   };
+
+  // This will pause the video when we switch tabs
+  useFocusEffect(
+    useCallback(() => {
+      setIsPlaying(true);
+      return () => {
+        setIsPlaying(false);
+      };
+    }, [])
+  );
 
   if (!currentTrack) {
     return <Text>Error</Text>;
