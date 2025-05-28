@@ -10,4 +10,6 @@ export const COLORS = {
   error: "#FF5252",
   border: "#f3e156",
   playerControls: "#f3e156",
+  tabInactive: "#8c8c89",
+  tabActive: "#fca900",
 };

@@ -12,7 +12,7 @@ export const MediaCard: FC<MediaCardProps> = ({ item }) => {
 
   const handlePress = () => {
     setCurrentTrack(item);
-    router.push("/player");
+    router.push({ pathname: "/player", params: { from: "click_list" } });
   };
 
   return (

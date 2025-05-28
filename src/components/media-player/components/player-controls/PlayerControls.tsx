@@ -1,6 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { useMediaStore } from "@/store";
+import { View, TouchableOpacity, Alert } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   faPlay,
@@ -8,17 +7,24 @@ import {
   faForward,
   faBackward,
 } from "@fortawesome/free-solid-svg-icons";
-import { styles } from "./player-controls.styles";
+import { useMediaStore } from "@/store";
 import { COLORS } from "@/constants";
+import { styles } from "./player-controls.styles";
 
 export const PlayerControls = () => {
-  const { isPlaying, currentTime, togglePlayPause, currentTrack } =
-    useMediaStore();
+  const { isPlaying, togglePlayPause } = useMediaStore();
+
+  const notImplementedAlert = () => {
+    Alert.alert("Non è ancora stato implementato, ma visivamente era carino.");
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.controlsContainer}>
-        <TouchableOpacity style={styles.secondaryButton}>
+        <TouchableOpacity
+          style={styles.secondaryButton}
+          onPress={notImplementedAlert}
+        >
           <FontAwesomeIcon icon={faBackward} color={COLORS.primary} />
         </TouchableOpacity>
 
@@ -30,7 +36,10 @@ export const PlayerControls = () => {
           )}
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.secondaryButton}>
+        <TouchableOpacity
+          style={styles.secondaryButton}
+          onPress={notImplementedAlert}
+        >
           <FontAwesomeIcon icon={faForward} color={COLORS.primary} />
         </TouchableOpacity>
       </View>

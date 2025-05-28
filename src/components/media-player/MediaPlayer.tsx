@@ -1,35 +1,47 @@
-import React from "react";
+import React, { useRef } from "react";
 import { ScrollView, View, Text } from "react-native";
-import Video from "react-native-video";
+import { useLocalSearchParams } from "expo-router";
+import Video, { VideoRef } from "react-native-video";
 import { useMediaStore } from "@/store";
-import { styles } from "./media-player.styles";
 import { getTypeColor } from "@/utils";
 import { PlayerControls } from "./components";
+import { styles } from "./media-player.styles";
 import { ProgressType } from "./media-player.types";
 
 export const MediaPlayer = () => {
-  const { currentTrack, isPlaying, setCurrentTime, currentTime } =
+  const { currentTrack, isPlaying, setCurrentTime, currentTime, setIsPlaying } =
     useMediaStore();
-
-  if (!currentTrack) {
-    return <Text>Error</Text>;
-  }
+  const params = useLocalSearchParams();
+  const { from = "storage" } = params;
+  const videoRef = useRef<VideoRef>(null);
 
   const handleProgress = (progObj: Readonly<ProgressType>) => {
     setCurrentTime(progObj.currentTime);
   };
+
+  const handleOnEnd = () => {
+    setIsPlaying(false);
+  };
+
+  if (!currentTrack) {
+    return <Text>Error</Text>;
+  }
 
   return (
     <>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.mediaContainer}>
           <Video
+            ref={videoRef}
             source={{ uri: currentTrack.url }}
             style={styles.videoPlayer}
             resizeMode="contain"
             paused={!isPlaying}
             onProgress={handleProgress}
-            currentPlaybackTime={currentTime}
+            onEnd={handleOnEnd}
+            onLoad={() => {
+              from === "storage" && videoRef.current?.seek(currentTime);
+            }}
           />
         </View>
         <PlayerControls />
@@ -44,7 +56,7 @@ export const MediaPlayer = () => {
             <Text style={styles.ratingText}>
               {currentTrack.rating
                 ? `★ ${currentTrack.rating.toFixed(1)}`
-                : "Not rated"}
+                : "Nessuna valutazione"}
             </Text>
             <View
               style={[
