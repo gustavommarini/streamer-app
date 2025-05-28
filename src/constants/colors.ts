@@ -11,8 +11,3 @@ export const COLORS = {
   border: "#f3e156",
   playerControls: "#f3e156",
 };
-
-export const FONTS = {
-  primary: "FjallaOne",
-  secondary: "Lato",
-};
