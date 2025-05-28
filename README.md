@@ -120,3 +120,17 @@ export const mediaMockData: Media[] = [
 ## Implementation
 
 - I have used [Expo starter](https://github.com/kadikraman/expo-starter) as boilerplate, because it was recomended on the ofitial documentation site for [Expo Router](https://docs.expo.dev/router/basics/layout/).
+
+## Screens
+
+### Android
+
+![Home Screen](assets/screenshot-home.jpg)
+![Player Screen](assets/screenshot-video.jpg)
+![Credits Screen](assets/screenshot-credits.jpg)
+
+### iOS
+
+![Home Screen](assets/screenshot-home_ios.jpg)
+![Player Screen](assets/screenshot-video_ios.jpg)
+![Credits Screen](assets/screenshot-credits_ios.jpg)
